@@ -12,7 +12,7 @@ from BiSeNetv2.utils.utils import preprocessing_kitti, postprocessing
 from pointpainting import PointPainter
 from bev_utils import boundary
 
-import tensorrt as trt
+
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
 device = torch.device(dev)
@@ -30,10 +30,7 @@ def main(args):
     bisenetv2.eval()
     bisenetv2.to(device)
 
-    TRT_LOGGER = trt.Logger(trt.Logger.WARNING)
-    builder = trt.Builder(TRT_LOGGER)
-    print(TRT_LOGGER, builder)
-    
+   
     # Fusion
     painter = PointPainter()
 

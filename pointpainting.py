@@ -23,7 +23,19 @@ class PointPainter():
             Return:
                 semantic/painted pointcloud of shape [n_points, 4] .. additional channel indicates class
         """
-        pointcloud = clip_pointcloud(pointcloud)
+
+        print('input Verfication')
+        print(semantic.shape)
+        print(pointcloud.shape)
+        print(calib.calib_matrix)
+        print(calib.calib_path)
+        print(calib.P2)
+        print(calib.R0_rect)
+        print(calib.Tr_velo_to_cam)
+        print(calib.__class__)
+
+
+        #pointcloud = clip_pointcloud(pointcloud)
         t1 = time.time()
         semantic = cv2.resize(semantic, self.image_shape, interpolation=cv2.INTER_NEAREST)
 
@@ -88,6 +100,8 @@ class PointPainter():
         # print(np.unique(semantic_channel, return_counts=True))
 
         painted_pointcloud = np.hstack((pointcloud[:,:3], semantic_channel)) # (N, 4)
+        print('test')
+        print(painted_pointcloud.shape)
         return painted_pointcloud
 
 

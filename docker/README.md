@@ -7,7 +7,7 @@ sudo docker build -t pointpaintingvideo .
 # Building the Container
 
 ```
-sudo rocker --nvidia --x11 --env NVIDIA_DRIVER_CAPABILITIES=all --volume ~/Documents/thesis/PointPaintingVideo:/tmp/PointPainting -- pointpaintingvideo
+sudo rocker --nvidia --x11 --env NVIDIA_DRIVER_CAPABILITIES=all --volume /mnt/f/git/PointPaintingVideo:/tmp/PointPainting -- pointpaintingvideo
 ```
 
 python3 demo_video.py --video_path KITTI/1 --calib_path KITTI/1/calib --mode 2d
