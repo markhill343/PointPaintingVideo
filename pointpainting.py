@@ -27,6 +27,7 @@ class PointPainter():
         print('input Verfication')
         print(semantic.shape)
         print(pointcloud.shape)
+        print(pointcloud[: ,3])
         print(calib.calib_matrix)
         print(calib.calib_path)
         print(calib.P2)
@@ -66,6 +67,10 @@ class PointPainter():
         projected_points = projected_points[:2].T # (N, 2)
         projected_points = projected_points.astype(np.int32)
 
+        print('projected points')
+        print(projected_points.shape)
+        print(projected_points)
+
         ### Filter 
         # filter is the index that contains background value (255) to be colorless
         # semantic map dosn't garentee that it has value of 255 so we set [0,0] index to 255
@@ -102,6 +107,7 @@ class PointPainter():
         painted_pointcloud = np.hstack((pointcloud[:,:3], semantic_channel)) # (N, 4)
         print('test')
         print(painted_pointcloud.shape)
+        print(painted_pointcloud[: ,3])
         return painted_pointcloud
 
 
