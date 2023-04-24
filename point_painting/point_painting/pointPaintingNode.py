@@ -15,6 +15,7 @@ from point_painting.BiSeNetv2.model.BiseNetv2 import BiSeNetV2
 from point_painting.utils import preprocessing_kitti, postprocessing
 from point_painting.pointpainting import PointPainter
 from point_painting.visualizer import Visualizer
+from point_painting.PointPillars import point_pillars
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
 device = torch.device(dev)
