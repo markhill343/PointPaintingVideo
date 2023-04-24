@@ -9,13 +9,16 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image, PointCloud2, CameraInfo, CompressedImage, PointField
 from std_msgs.msg import String
 from std_msgs.msg import Header
+from torch_points3d.applications import PointPillars
+from torch_points3d.datasets.object_detection.utils import ObjectDetectionData, Visualizer as ObjectDetectionVisualizer
 
 from point_painting.Calibration import Calibration
 from point_painting.BiSeNetv2.model.BiseNetv2 import BiSeNetV2
 from point_painting.utils import preprocessing_kitti, postprocessing
 from point_painting.pointpainting import PointPainter
-from point_painting.visualizer import Visualizer
-from point_painting.PointPillars import point_pillars
+# from point_painting.visualizer import Visualizer
+# from point_painting.PointPillars import point_pillars
+
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
 device = torch.device(dev)
@@ -141,11 +144,11 @@ class PaintLidarNode(Node):
 
         # Add Visualizer
         # self.visualizer.visuallize_pointcloud(painted_pointcloud, blocking=True)
-        color_image = self.visualizer.get_colored_image(self.image, semantic)
-        scene_2D  = self.visualizer.get_scene_2D(color_image, painted_pointcloud, self.calib)
-        scene_2D = cv2.resize(scene_2D, (600, 900))
-        cv2.imshow("scene", scene_2D)
-        cv2.waitKey(1)
+        # color_image = self.visualizer.get_colored_image(self.image, semantic)
+        # scene_2D  = self.visualizer.get_scene_2D(color_image, painted_pointcloud, self.calib)
+        # scene_2D = cv2.resize(scene_2D, (600, 900))
+        # cv2.imshow("scene", scene_2D)
+        # cv2.waitKey(1)
         t6 = time.time()
 
         print(f'Time of bisenetv2 = {1000 * (t2-t1)} ms')
