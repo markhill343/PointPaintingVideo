@@ -1,3 +1,10 @@
+"""
+Author: Markus Hillreiner
+email: markus.hillreiner@gmail.com
+-----------------------------------------------------------------------------------
+Description: Ros2 Humble Point Painting Node
+"""
+
 import os
 import numpy as np
 import time
@@ -14,7 +21,6 @@ from point_painting.Calibration import Calibration
 from point_painting.BiSeNetv2.model.BiseNetv2 import BiSeNetV2
 from point_painting.utils import preprocessing_kitti, postprocessing
 from point_painting.pointpainting import PointPainter
-from point_painting.visualizer import Visualizer
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
 device = torch.device(dev)
@@ -36,9 +42,6 @@ class PaintLidarNode(Node):
 
         # Fusion
         self.painter = PointPainter()
-        
-        # Visualizer
-        self.visualizer = Visualizer()
 
         # Variables to store the incoming data
         self.image = None
@@ -105,6 +108,7 @@ class PaintLidarNode(Node):
         
         # Publish the painted_pointcloud as a PointCloud2 message
         painted_lidar_msg = PointCloud2()
+
         # Set the header and data fields of the painted_lidar_msg
         painted_lidar_msg.header.stamp = self.get_clock().now().to_msg()
         painted_lidar_msg.header.frame_id = 'rslidar'
@@ -123,25 +127,14 @@ class PaintLidarNode(Node):
         data = painted_pointcloud.astype(np.float32).tobytes()
         painted_lidar_msg.data.frombytes(data)
 
-
         # Publish Painted Lidar
         self.painted_lidar_publisher.publish(painted_lidar_msg)
         t5 = time.time()
-
-        # Add Visualizer
-        # self.visualizer.visuallize_pointcloud(painted_pointcloud, blocking=True)
-        # color_image = self.visualizer.get_colored_image(self.image, semantic)
-        # scene_2D  = self.visualizer.get_scene_2D(color_image, painted_pointcloud, self.calib)
-        # scene_2D = cv2.resize(scene_2D, (600, 900))
-        # cv2.imshow("scene", scene_2D)
-        # cv2.waitKey(1)
-        # t6 = time.time()
 
         print(f'Time of bisenetv2 = {1000 * (t2-t1)} ms')
         print(f'Time of postprocesssing = {1000 * (t3-t2)} ms')
         print(f'Time of pointpainting = {1000 * (t4-t3)} ms')
         print(f'Time of publishing = {1000 * (t5-t4)} ms')
-        # print(f'Time of Visualizing = {1000 * (t6-t5)} ms')
         print(f'Time of Total = {1000 * (t5-t1)} ms')
 
 def main(args=None):
@@ -153,9 +146,6 @@ def main(args=None):
     
     PaintLidarNode.destroy_node()
     rclpy.shutdown()
-
-
-
 
 if __name__ == '__main__':
     main()

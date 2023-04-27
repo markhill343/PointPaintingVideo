@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 import argparse, time, os
 from BiSeNetv2.model.BiseNetv2 import BiSeNetV2
-from visualizer import Visualizer
 
 dev = "cuda" if torch.cuda.is_available() else "cpu"
 device = torch.device(dev)
