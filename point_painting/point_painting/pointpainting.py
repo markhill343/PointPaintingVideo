@@ -24,7 +24,7 @@ class PointPainter():
                 semantic/painted pointcloud of shape [n_points, 4] .. additional channel indicates class
         """
 
-        pointcloud = clip_pointcloud(pointcloud)
+        # pointcloud = clip_pointcloud(pointcloud)
         t1 = time.time()
         semantic = cv2.resize(semantic, self.image_shape, interpolation=cv2.INTER_NEAREST)
 
