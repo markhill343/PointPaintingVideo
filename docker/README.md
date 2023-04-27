@@ -7,7 +7,7 @@ sudo docker build -t pointpaintingvideo_ros .
 # Building the Container
 
 ```
-sudo rocker --nvidia --x11 --env NVIDIA_DRIVER_CAPABILITIES=all --volume ~/Documents/thesis/PointPaintingVideo:/tmp/PointPainting -- pointpaintingvideo
+sudo rocker --nvidia --x11 --env NVIDIA_DRIVER_CAPABILITIES=all --volume /home/mark/Documents/thesis/PointPaintingVideo/point_painting:tmp/dev_ws/src/point_painting -- pointpaintingvideo_ros
 ```
 
 ```
